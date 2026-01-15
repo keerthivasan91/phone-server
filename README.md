@@ -4,7 +4,6 @@ This is a small **hobby learning project** where an Android phone is used as a l
 
 The purpose of this project is to understand basic **server setup, SSH access, networking, and tunneling concepts**. This is not intended for production use.
 
----
 
 ## Tech Stack
 - Android
@@ -13,17 +12,19 @@ The purpose of this project is to understand basic **server setup, SSH access, n
 - Flask
 - SSH
 - Cloudflare Tunnel
-- Git & GitHub
+
 
 ---
 
 ## Project Structure
+```
 phone-server-project/
 ├── app.py
 ├── requirements.txt
 ├── README.md
 ├── .gitignore
 └── screenshots/
+```
 
 ---
 
@@ -35,6 +36,43 @@ phone-server-project/
 5. No router port forwarding or public IP exposure is used  
 
 ---
+# How to Set Up This Project
+
+## 1. Install Termux
+Install **Termux** from Play store and update packages:
+```bash
+pkg update && pkg upgrade
+```
+
+## 2. Install Required Packages
+```bash
+pkg install python git openssh
+pip install -r requirements.txt
+```
+
+## 3. Start the Flask App
+```bash
+python app.py
+```
+The app will run locally on `http://127.0.0.1:5000`.
+
+## 4. Expose the App Using Cloudflare Tunnel
+Install cloudflared and start a quick tunnel:
+```bash
+cloudflared tunnel --url http://localhost:5000
+```
+A public HTTPS URL will be generated.
+
+## 5. (Optional) SSH Access from Laptop
+Start SSH on the phone:
+```bash
+sshd
+```
+
+Connect from laptop:
+```bash
+ssh -p 8022 username@phone_ip
+```
 
 ## Security Notes
 - Flask is bound to localhost only
@@ -51,6 +89,3 @@ phone-server-project/
 - Not suitable for production deployment
 
 ---
-
-## Purpose
-Built purely as a **learning and experimentation project** to gain hands-on understanding of servers and networking.
